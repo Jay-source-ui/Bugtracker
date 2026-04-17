@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>API Documentation - Bug Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 50px 0;
+        }
+        .api-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .endpoint {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        .method {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        .get { background-color: #28a745; color: white; }
+        .post { background-color: #007bff; color: white; }
+        .put { background-color: #ffc107; color: black; }
+        .delete { background-color: #dc3545; color: white; }
+        .patch { background-color: #17a2b8; color: white; }
+        .url {
+            font-family: monospace;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="api-container">
+            <h1><i class="fas fa-code"></i> Bug Tracker REST API</h1>
+            <p class="text-muted">Base URL: <code>http://localhost:8082/api</code></p>
+            <hr>
+            
+            <h3><i class="fas fa-bug"></i> Bug Endpoints</h3>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/bugs</span>
+                <p class="mt-2 mb-0">Get all bugs</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/bugs/{id}</span>
+                <p class="mt-2 mb-0">Get bug by ID</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="url">/api/bugs</span>
+                <p class="mt-2 mb-0">Create new bug</p>
+                <small>Body: {"title": "Bug title", "description": "Description", "priority": "HIGH"}</small>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method put">PUT</span>
+                <span class="url">/api/bugs/{id}</span>
+                <p class="mt-2 mb-0">Update bug</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method delete">DELETE</span>
+                <span class="url">/api/bugs/{id}</span>
+                <p class="mt-2 mb-0">Delete bug</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method patch">PATCH</span>
+                <span class="url">/api/bugs/{id}/resolve</span>
+                <p class="mt-2 mb-0">Resolve bug</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/bugs/status/{status}</span>
+                <p class="mt-2 mb-0">Get bugs by status (OPEN, IN_PROGRESS, RESOLVED)</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/bugs/priority/{priority}</span>
+                <p class="mt-2 mb-0">Get bugs by priority (HIGH, MEDIUM, LOW)</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/bugs/search?keyword={text}</span>
+                <p class="mt-2 mb-0">Search bugs by title</p>
+            </div>
+            
+            <h3 class="mt-4"><i class="fas fa-chart-line"></i> Statistics Endpoints</h3>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/stats/dashboard</span>
+                <p class="mt-2 mb-0">Get dashboard statistics</p>
+            </div>
+            
+            <h3 class="mt-4"><i class="fas fa-users"></i> User Endpoints</h3>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/users</span>
+                <p class="mt-2 mb-0">Get all users</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/users/{username}</span>
+                <p class="mt-2 mb-0">Get user by username</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/users/role/developer</span>
+                <p class="mt-2 mb-0">Get all developers</p>
+            </div>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="url">/api/users/role/tester</span>
+                <p class="mt-2 mb-0">Get all testers</p>
+            </div>
+            
+            <hr>
+            
+            <h3><i class="fas fa-play"></i> Test API with cURL</h3>
+            
+            <h5>Get all bugs:</h5>
+            <pre>curl -X GET http://localhost:8082/api/bugs</pre>
+            
+            <h5>Create a bug:</h5>
+            <pre>curl -X POST http://localhost:8082/api/bugs \
+  -H "Content-Type: application/json" \
+  -d '{"title":"API Test","description":"Test bug","priority":"HIGH"}'</pre>
+            
+            <h5>Resolve a bug:</h5>
+            <pre>curl -X PATCH http://localhost:8082/api/bugs/1/resolve</pre>
+            
+            <h5>Delete a bug:</h5>
+            <pre>curl -X DELETE http://localhost:8082/api/bugs/1</pre>
+            
+            <hr>
+            
+            <div class="text-center">
+                <a href="/" class="btn btn-primary">Back to Home</a>
+                <a href="/dashboard" class="btn btn-info">View Dashboard</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
